@@ -50,10 +50,7 @@ distDocker {
 task dockerBuilder(type: Docker) {
     applicationName = jar.baseName
     tagVersion = jar.version
-    volume('/tmp')
-    addFile("${jar.baseName}-${jar.version}.jar", "app.jar")
-    entryPoint(["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", 'app.jar'])
-    exposePort(8999)
+    dockerfile = file('Dockerfile')
     doFirst {
         copy {
             from jar
